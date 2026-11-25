@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoneyPlus</title>
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+body {
+  background: #f2f6ff;
+  color: #172554;
+  padding-bottom: 85px;
+}
+header {
+  background: #0756d8;
+  color: white;
+  padding: 22px 18px;
+  border-radius: 0 0 22px 22px;
+}
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+header p {
+  margin-top: 5px;
+  opacity: .85;
+}
+.container {
+  padding: 16px;
+}
+.card {
+  background: white;
+  padding: 18px;
+  border-radius: 17px;
+  margin-bottom: 15px;
+  box-shadow: 0 3px 12px #0b3b7910;
+}
+.balance {
+  background: linear-gradient(135deg,#0756d8,#368bff);
+  color: white;
+}
+.balance h1 {
+  font-size: 30px;
+  margin: 12px 0;
+}
+.small {
+  font-size: 13px;
+  opacity: .8;
+}
+h2 {
+  font-size: 19px;
+  margin-bottom: 14px;
+}
+h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.action {
+  border: 0;
+  border-radius: 14px;
+  padding: 15px 8px;
+  background: #eaf2ff;
+  color: #0756d8;
+  font-size: 15px;
+  font-weight: bold;
+}
+.action span {
+  display: block;
+  font-size: 24px;
+  margin-bottom: 7px;
+}
+button {
+  cursor: pointer;
+}
+.primary {
+  background: #0756d8;
+  color: white;
+  border: 0;
+  border-radius: 11px;
+  padding: 13px;
+  width: 100%;
+  font-weight: bold;
+  margin-top: 10px;
+}
+input {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d5def0;
+  border-radius: 10px;
+  margin: 8px 0;
+}
+.page {
+  display: none;
+}
+.page.active {
+  display: block;
+}
+.item {
+  padding: 13px 0;
+  border-bottom: 1px solid #edf0f7;
+}
+nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 2px;
+  box-shadow: 0 -3px 15px #00000012;
+}
+nav button {
+  border: 0;
+  background: transparent;
+  color: #718096;
+  font-size: 11px;
+}
+nav button span {
+  display: block;
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+nav button.active {
+  color: #0756d8;
+  font-weight: bold;
+}
+.notice {
+  background: #fff7df;
+  color: #805b00;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+</style>
+</head><body>
+
+<header>
+  <div class="logo">💳 MoneyPlus</div>
+  <p>Votre espace financier</p>
+</header>
+
+<div class="container">
+
+<section id="accueil" class="page active">
+  <div class="card balance">
+    <p class="small">Solde disponible</p>
+    <h1>0,00 Ar</h1>
+    <p class="small">Bienvenue sur MoneyPlus</p>
+  </div>
+
+  <div class="grid">
+    <button class="action" onclick="showPage('depot')">
+      <span>💰</span>Dépôt
+    </button>
+    <button class="action" onclick="showPage('retrait')">
+      <span>🏧</span>Retrait
+    </button>
+    <button class="action" onclick="showPage('historique')">
+      <span>📜</span>Historique
+    </button>
+    <button class="action" onclick="showPage('claim')">
+      <span>🎁</span>Daily Claim
+    </button>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>Vue d'ensemble</h2>
+    <div class="item">💵 Total des dépôts : 0 Ar</div>
+    <div class="item">📈 Total des gains : 0 Ar</div>
+    <div class="item">🏦 Total des retraits : 0 Ar</div>
+  </div>
+
+  <div class="card">
+    <h2>Bienvenue !</h2>
+    <p>Gérez votre espace MoneyPlus facilement.</p>
+  </div>
+</section>
+
+<section id="depot" class="page">
+  <div class="card">
+    <h2>💰 Effectuer un dépôt</h2>
+    <p>Montant du dépôt (Ar)</p>
+    <input type="number" id="montantDepot" placeholder="Ex : 10000">
+    <p>Mode de paiement</p>
+    <select id="modeDepot">
+      <option>Orange Money</option>
+      <option>Airtel Money</option>
+      <option>MVola</option>
+    </select>
+    <button class="primary" onclick="faireDepot()">Continuer</button>
+  </div>
+</section>
+
+<section id="retrait" class="page">
+  <div class="card">
+    <h2>🏧 Effectuer un retrait</h2>
+    <p>Montant du retrait (Ar)</p>
+    <input type="number" id="montantRetrait" placeholder="Ex : 5000">
+    <p>Numéro de réception</p>
+    <input type="tel" placeholder="Votre numéro mobile money">
+    <p>Mode de retrait</p>
+    <select id="modeRetrait">
+      <option>Orange Money</option>
+      <option>Airtel Money</option>
+      <option>MVola</option>
+    </select>
+    <button class="primary" onclick="faireRetrait()">Demander un retrait</button>
+  </div>
+</section><section id="historique" class="page">
+  <div class="card">
+    <h2>📜 Historique</h2>
+    <div class="item">
+      <strong>Aucune transaction</strong>
+      <p class="small">Vos opérations apparaîtront ici.</p>
+    </div>
+  </div>
+</section>
+
+<section id="taches" class="page">
+  <div class="card">
+    <h2>📋 Tâches disponibles</h2>
+    <div class="item">
+      <h3>🎬 Regarder une vidéo</h3>
+      <p class="small">Tâche de démonstration</p>
+      <button class="primary" onclick="messageDemo()">Voir la tâche</button>
+    </div>
+    <div class="item">
+      <h3>📱 Découvrir MoneyPlus</h3>
+      <p class="small">Découvrez les fonctionnalités de la plateforme.</p>
+      <button class="primary" onclick="messageDemo()">Commencer</button>
+    </div>
+  </div>
+</section>
+
+<section id="equipe" class="page">
+  <div class="card">
+    <h2>👥 Mon équipe</h2>
+    <p>Invitez vos amis à découvrir MoneyPlus.</p>
+    <input id="lienInvitation" value="Lien d'invitation indisponible" readonly>
+    <button class="primary" onclick="partagerLien()">Partager</button>
+    <p class="small" style="margin-top:10px">
+      Le système de parrainage sera activé après la création du serveur.
+    </p>
+  </div>
+</section><section id="profil" class="page">
+  <div class="card">
+    <h2>👤 Mon profil</h2>
+    <p>Nom complet</p>
+    <input type="text" placeholder="Votre nom">
+    <p>Adresse e-mail</p>
+    <input type="email" placeholder="Votre e-mail">
+    <p>Numéro de téléphone</p>
+    <input type="tel" placeholder="Votre numéro">
+    <button class="primary" onclick="messageDemo()">
+      Enregistrer le profil
+    </button>
+  </div>
+</section>
+
+<section id="claim" class="page">
+  <div class="card">
+    <h2>🎁 Daily Claim</h2>
+    <p>Réclamez votre récompense quotidienne lorsqu'elle sera disponible.</p>
+    <div class="notice" style="margin-top:12px">
+      Les récompenses ne sont pas encore activées. Leur montant, leur durée
+      et leurs conditions devront être clairement définis avant lancement.
+      Aucun rendement n'est garanti.
+    </div>
+    <button class="primary" onclick="messageDemo()">
+      Daily Claim
+    </button>
+  </div>
+</section>
+
+</div><nav>
+  <button class="active" onclick="showPage('accueil',this)">
+    <span>🏠</span>Accueil
+  </button>
+  <button onclick="showPage('historique',this)">
+    <span>📜</span>Historique
+  </button>
+  <button onclick="showPage('taches',this)">
+    <span>📋</span>Tâches
+  </button>
+  <button onclick="showPage('equipe',this)">
+    <span>👥</span>Équipe
+  </button>
+  <button onclick="showPage('profil',this)">
+    <span>👤</span>Profil
+  </button>
+</nav>
+
+<script>
+function showPage(pageId, button) {
+  document.querySelectorAll('.page').forEach(function(page) {
+    page.classList.remove('active');
+  });
+
+  document.getElementById(pageId).classList.add('active');
+
+  document.querySelectorAll('nav button').forEach(function(btn) {
+    btn.classList.remove('active');
+  });
+
+  if (button) {
+    button.classList.add('active');
+  } else {
+    document.querySelectorAll('nav button').forEach(function(btn) {
+      if (btn.getAttribute('onclick').includes(pageId)) {
+        btn.classList.add('active');
+      }
+    });
+  }
+
+  window.scrollTo(0, 0);
+}
+</script><script>
+function faireDepot() {
+  const montant = document.getElementById('montantDepot').value;
+
+  if (!montant || Number(montant) <= 0) {
+    alert('Veuillez entrer un montant valide.');
+    return;
+  }
+
+  alert('Fonction dépôt en démonstration. Aucun paiement réel ne sera effectué.');
+}
+
+function faireRetrait() {
+  const montant = document.getElementById('montantRetrait').value;
+
+  if (!montant || Number(montant) <= 0) {
+    alert('Veuillez entrer un montant valide.');
+    return;
+  }
+
+  alert('Fonction retrait en démonstration. Aucun argent ne sera envoyé.');
+}
+
+function messageDemo() {
+  alert('Cette fonctionnalité sera activée dans une prochaine version.');
+}
+
+function partagerLien() {
+  alert('Le lien de parrainage sera disponible après la création du serveur.');
+}
+</script>
+
+</body>
+</html>
